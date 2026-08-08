@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🧞 Gênio Digital - Criador de Conteúdo</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="app">
+        <!-- ============================================================ -->
+        <!-- CABEÇALHO -->
+        <!-- ============================================================ -->
+        <div id="header">
+            <div id="header-top">
+                <button id="backBtn" class="icon-btn hidden" onclick="goBack()" title="Voltar">←</button>
+                <div>
+                    <h1>🧞 <span style="color: #f0883e;">Gênio</span> <span style="color: #58a6ff;">Digital</span></h1>
+                    <div id="personality-tag">🧠 IA com Personalidade</div>
+                </div>
+                <div id="header-actions">
+                    <button id="themeBtn" class="icon-btn" title="Alternar tema">🌓</button>
+                    <button id="shareBtn" class="icon-btn" title="Compartilhar">📤</button>
+                </div>
+            </div>
+            <p id="subtitle">✨ Inteligência Artificial com Personalidade, Memória e Criatividade</p>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MENU PRINCIPAL -->
+        <!-- ============================================================ -->
+        <div id="main-menu">
+            <p id="menu-subtitle" style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">
+                🎯 O que você quer criar hoje?
+            </p>
+            <div class="menu-buttons">
+                <button class="menu-btn image-btn" onclick="openPage('image')">
+                    <span class="menu-icon">🎨</span>
+                    <span class="menu-title">Criar Imagem</span>
+                    <span class="menu-desc">6 estilos diferentes</span>
+                </button>
+                <button class="menu-btn video-btn" onclick="openPage('video')">
+                    <span class="menu-icon">🎬</span>
+                    <span class="menu-title">Criar Vídeo</span>
+                    <span class="menu-desc">Modelos gratuitos</span>
+                </button>
+                <button class="menu-btn chat-btn" onclick="openPage('chat')">
+                    <span class="menu-icon">💬</span>
+                    <span class="menu-title">Assistente</span>
+                    <span class="menu-desc">Perguntas e código</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PÁGINA DE VÍDEO -->
+        <!-- ============================================================ -->
+        <div id="video-page" class="page hidden">
+            <h2>🎬 Criar Vídeo</h2>
+            <div class="options-grid">
+                <div class="option-group">
+                    <label>🎨 Estilo</label>
+                    <select id="videoStyle">
+                        <option value="realistic">Realista</option>
+                        <option value="anime">Anime</option>
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="fantasy">Fantasia</option>
+                        <option value="cartoon">Cartoon</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label>⏱️ Duração</label>
+                    <select id="videoDuration">
+                        <option value="3">3 segundos</option>
+                        <option value="5" selected>5 segundos</option>
+                        <option value="8">8 segundos</option>
+                        <option value="10">10 segundos</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label>📐 Proporção</label>
+                    <select id="videoRatio">
+                        <option value="16:9">16:9 (Horizontal)</option>
+                        <option value="9:16">9:16 (Vertical)</option>
+                        <option value="1:1">1:1 (Quadrado)</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label>🤖 Modelo</label>
+                    <select id="videoModel">
+                        <option value="wan">Wan (Gratuito)</option>
+                        <option value="ltx-2">LTX-2 (Gratuito)</option>
+                        <option value="seedance">Seedance (Pago)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="prompt-area">
+                <textarea id="videoPrompt" placeholder="Ex: um gato astronauta flutuando no espaço..."></textarea>
+                <button id="generateVideoBtn" onclick="generateVideoFromPage()">🎬 Gerar Vídeo</button>
+            </div>
+            <div id="video-result" class="result-area">
+                <span style="color: var(--text-secondary);">Seu vídeo vai aparecer aqui...</span>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PÁGINA DE IMAGEM -->
+        <!-- ============================================================ -->
+        <div id="image-page" class="page hidden">
+            <h2>🎨 Criar Imagem</h2>
+            <div class="options-grid">
+                <div class="option-group full-width">
+                    <label>🎨 Escolha o Estilo</label>
+                    <div class="style-buttons">
+                        <button class="style-btn active" data-style="realistic" onclick="setStyle('realistic')">Realista</button>
+                        <button class="style-btn" data-style="anime" onclick="setStyle('anime')">Anime</button>
+                        <button class="style-btn" data-style="painting" onclick="setStyle('painting')">Pintura</button>
+                        <button class="style-btn" data-style="cyberpunk" onclick="setStyle('cyberpunk')">Cyberpunk</button>
+                        <button class="style-btn" data-style="fantasy" onclick="setStyle('fantasy')">Fantasia</button>
+                        <button class="style-btn" data-style="cartoon" onclick="setStyle('cartoon')">Cartoon</button>
+                    </div>
+                </div>
+            </div>
+            <div class="prompt-area">
+                <textarea id="imagePrompt" placeholder="Ex: um dragão de fogo em uma montanha..."></textarea>
+                <button id="generateImageBtn" onclick="generateImageFromPage()">🎨 Gerar Imagem</button>
+            </div>
+            <div id="image-result" class="result-area">
+                <span style="color: var(--text-secondary);">Sua imagem vai aparecer aqui...</span>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PÁGINA DE CHAT (ASSISTENTE) -->
+        <!-- ============================================================ -->
+        <div id="chat-page" class="page hidden">
+            <h2>💬 Assistente Gênio</h2>
+            <div id="chat-container">
+                <div id="messages"></div>
+                <div id="input-area">
+                    <button id="voiceBtn" class="voice-btn" title="Comando de voz">🎤</button>
+                    <input type="text" id="userInput" placeholder="Pergunte qualquer coisa ao Gênio..." />
+                    <button id="sendBtn">✨ Enviar</button>
+                </div>
+            </div>
+            <!-- OUTPUT (para código) -->
+            <div id="output-area">
+                <div id="output-header">
+                    <h3>📦 Resultado</h3>
+                    <div id="output-actions">
+                        <button id="exportBtn" class="small-btn">📥 Exportar</button>
+                        <button id="copyBtn" class="small-btn">📋 Copiar</button>
+                        <button id="clearBtn" class="small-btn">🗑️ Limpar</button>
+                    </div>
+                </div>
+                <pre id="codeOutput"><code>// O Gênio vai colocar o resultado aqui</code></pre>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- STATUS -->
+        <!-- ============================================================ -->
+        <div id="status">
+            <span id="statusIndicator">🧠 Gênio Digital 3.0 - Ativo</span>
+            <span id="dateTime"></span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
